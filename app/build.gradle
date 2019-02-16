@@ -15,6 +15,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -22,4 +25,6 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:${project.constraintLayoutVersion}"
     implementation "com.android.support:appcompat-v7:${project.appcompatVersion}"
     implementation "com.squareup.picasso:picasso:${project.picassoVersion}"
+    testImplementation "junit:junit:${project.junitVersion}"
+
 }
