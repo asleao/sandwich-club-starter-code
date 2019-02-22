@@ -48,17 +48,4 @@ public class JsonUtilsTest {
     public void test_parseSandwichJson_parameterIsNull_fail() throws JSONException, NullParameterException, EmptyParameterException {
         JsonUtils.parseSandwichJson(null);
     }
-
-    @Test(expected = JSONException.class)
-    //TODO check this test
-    public void test_parseSandwichJson_withoutAnyField_fail() throws JSONException, NullParameterException, EmptyParameterException {
-        String fakeSandwich = "{\"placeOfOrigin\":\"EUA\"}";
-        Sandwich sandwichObject = JsonUtils.parseSandwichJson(fakeSandwich);
-        Assert.assertNotNull(sandwichObject);
-    }
-
-    @Test
-    public void test_parseSandwichJson_AllFieldsEmpty_success(){
-
-    }
 }
