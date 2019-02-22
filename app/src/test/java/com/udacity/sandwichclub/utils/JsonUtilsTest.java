@@ -1,12 +1,17 @@
 package com.udacity.sandwichclub.utils;
 
+import com.udacity.sandwichclub.exceptions.EmptyParameterException;
+import com.udacity.sandwichclub.exceptions.NullParameterException;
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
+@RunWith(RobolectricTestRunner.class)
 public class JsonUtilsTest {
 
     private String fakeSandwich;
@@ -24,8 +29,36 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void test_parseSandwichJson_success() throws JSONException {
+    public void test_parseSandwichJson_success() throws JSONException, NullParameterException, EmptyParameterException {
         Sandwich sandwichObject = JsonUtils.parseSandwichJson(fakeSandwich);
         Assert.assertNotNull(sandwichObject);
+        Assert.assertFalse(sandwichObject.getMainName().isEmpty());
+        Assert.assertTrue(sandwichObject.getAlsoKnownAs().isEmpty());
+        Assert.assertFalse(sandwichObject.getDescription().isEmpty());
+        Assert.assertFalse(sandwichObject.getImage().isEmpty());
+        Assert.assertFalse(sandwichObject.getIngredients().isEmpty());
+    }
+
+    @Test(expected = EmptyParameterException.class)
+    public void test_parseSandwichJson_parameterIsEmptyString_fail() throws JSONException, NullParameterException, EmptyParameterException {
+        JsonUtils.parseSandwichJson("");
+    }
+
+    @Test(expected = NullParameterException.class)
+    public void test_parseSandwichJson_parameterIsNull_fail() throws JSONException, NullParameterException, EmptyParameterException {
+        JsonUtils.parseSandwichJson(null);
+    }
+
+    @Test(expected = JSONException.class)
+    //TODO check this test
+    public void test_parseSandwichJson_withoutAnyField_fail() throws JSONException, NullParameterException, EmptyParameterException {
+        String fakeSandwich = "{\"placeOfOrigin\":\"EUA\"}";
+        Sandwich sandwichObject = JsonUtils.parseSandwichJson(fakeSandwich);
+        Assert.assertNotNull(sandwichObject);
+    }
+
+    @Test
+    public void test_parseSandwichJson_AllFieldsEmpty_success(){
+
     }
 }

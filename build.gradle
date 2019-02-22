@@ -25,6 +25,7 @@ ext {
     appcompatVersion = "28.0.0"
     picassoVersion = "2.5.2"
     junitVersion = "4.12"
+    roboeletricVersion = "4.2"
 }
 
 task clean(type: Delete) {
