@@ -14,6 +14,7 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 import org.json.JSONException;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -67,20 +68,39 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-        TextView origin = findViewById(R.id.origin_tv);
-        TextView alsoKwon = findViewById(R.id.also_known_as_tv);
-        TextView ingredients = findViewById(R.id.ingredients_tv);
-        for (Iterator<String> it = sandwich.getIngredients().iterator(); it.hasNext();) {
-            ingredients.append(it.next());
+        populatePlaceOfOrigin(sandwich.getPlaceOfOrigin());
+        populateAlsoKnownAs(sandwich.getAlsoKnownAs());
+        populateIngredients(sandwich.getIngredients());
+        populateDescription(sandwich.getDescription());
+    }
+
+    private void populateDescription(String descrition) {
+        TextView mDescription = findViewById(R.id.description_tv);
+        mDescription.setText(descrition);
+    }
+
+    private void populateIngredients(List<String> listOfIngredients) {
+        TextView mIngredients = findViewById(R.id.ingredients_tv);
+        for (Iterator<String> it = listOfIngredients.iterator(); it.hasNext(); ) {
+            mIngredients.append(it.next());
             if (it.hasNext()) {
-                ingredients.append("\n");
+                mIngredients.append("\n");
             }
         }
-        TextView description = findViewById(R.id.description_tv);
-//        alsoKwon.setText(sandwich.getAlsoKnownAs());
-        origin.setText(sandwich.getPlaceOfOrigin());
-//        ingredients.setText(sandwich.getIngredients());
-        description.setText(sandwich.getDescription());
+    }
 
+    private void populateAlsoKnownAs(List<String> alsoKnownAs) {
+        TextView mAlsoKwon = findViewById(R.id.also_known_as_tv);
+        for (Iterator<String> it = alsoKnownAs.iterator(); it.hasNext(); ) {
+            mAlsoKwon.append(it.next());
+            if (it.hasNext()) {
+                mAlsoKwon.append(", ");
+            }
+        }
+    }
+
+    private void populatePlaceOfOrigin(String placeOfOrigin) {
+        TextView mOrigin = findViewById(R.id.origin_tv);
+        mOrigin.setText(placeOfOrigin);
     }
 }
