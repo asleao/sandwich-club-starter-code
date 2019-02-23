@@ -7,8 +7,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.udacity.sandwichclub.exceptions.EmptyParameterException;
-import com.udacity.sandwichclub.exceptions.NullParameterException;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
@@ -44,10 +42,6 @@ public class DetailActivity extends AppCompatActivity {
         try {
             sandwich = JsonUtils.parseSandwichJson(json);
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (NullParameterException e) {
-            e.printStackTrace();
-        } catch (EmptyParameterException e) {
             e.printStackTrace();
         }
         if (sandwich == null) {
