@@ -2,7 +2,9 @@ package com.udacity.sandwichclub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.Group;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,14 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+    private TextView mOriginLabel;
+    private TextView mOriginContent;
+    private TextView mAlsoKwonLabel;
+    private TextView mAlsoKwonContent;
+    private TextView mIngredientsLabel;
+    private TextView mIngredientsContent;
+    private TextView mDescriptionLabel;
+    private TextView mDescriptionContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,15 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
+        mOriginLabel = findViewById(R.id.origin_label_tv);
+        mOriginContent = findViewById(R.id.origin_tv);
+        mAlsoKwonLabel = findViewById(R.id.also_known_as_label_tv);
+        mAlsoKwonContent = findViewById(R.id.also_known_as_tv);
+        mIngredientsLabel = findViewById(R.id.ingredients_label_tv);
+        mIngredientsContent = findViewById(R.id.ingredients_tv);
+        mDescriptionLabel = findViewById(R.id.description_label_tv);
+        mDescriptionContent = findViewById(R.id.description_tv);
+
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -57,6 +76,8 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
+//                .placeholder(R.drawable.)
+//                .error()
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
@@ -75,32 +96,48 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateDescription(String descrition) {
-        TextView mDescription = findViewById(R.id.description_tv);
-        mDescription.setText(descrition);
+        if (descrition.isEmpty()) {
+            mDescriptionLabel.setVisibility(View.GONE);
+            mDescriptionContent.setVisibility(View.GONE);
+        } else {
+            mDescriptionContent.setText(descrition);
+        }
     }
 
     private void populateIngredients(List<String> listOfIngredients) {
-        TextView mIngredients = findViewById(R.id.ingredients_tv);
-        for (Iterator<String> it = listOfIngredients.iterator(); it.hasNext(); ) {
-            mIngredients.append(it.next());
-            if (it.hasNext()) {
-                mIngredients.append("\n");
+        if (listOfIngredients.isEmpty()) {
+            mIngredientsLabel.setVisibility(View.GONE);
+            mIngredientsContent.setVisibility(View.GONE);
+        } else {
+            for (Iterator<String> it = listOfIngredients.iterator(); it.hasNext(); ) {
+                mIngredientsContent.append(it.next());
+                if (it.hasNext()) {
+                    mIngredientsContent.append("\n");
+                }
             }
         }
     }
 
     private void populateAlsoKnownAs(List<String> alsoKnownAs) {
-        TextView mAlsoKwon = findViewById(R.id.also_known_as_tv);
-        for (Iterator<String> it = alsoKnownAs.iterator(); it.hasNext(); ) {
-            mAlsoKwon.append(it.next());
-            if (it.hasNext()) {
-                mAlsoKwon.append(", ");
+        if (alsoKnownAs.isEmpty()) {
+            mAlsoKwonLabel.setVisibility(View.GONE);
+            mAlsoKwonContent.setVisibility(View.GONE);
+        } else {
+            for (Iterator<String> it = alsoKnownAs.iterator(); it.hasNext(); ) {
+                mAlsoKwonContent.append(it.next());
+                if (it.hasNext()) {
+                    mAlsoKwonContent.append("\n");
+                }
             }
         }
     }
 
     private void populatePlaceOfOrigin(String placeOfOrigin) {
-        TextView mOrigin = findViewById(R.id.origin_tv);
-        mOrigin.setText(placeOfOrigin);
+        if (placeOfOrigin.isEmpty()) {
+            mOriginLabel.setVisibility(View.GONE);
+            mOriginContent.setVisibility(View.GONE);
+        } else {
+            mOriginContent.setText(placeOfOrigin);
+        }
     }
 }
