@@ -1,7 +1,5 @@
 package com.udacity.sandwichclub.utils;
 
-import com.udacity.sandwichclub.exceptions.EmptyParameterException;
-import com.udacity.sandwichclub.exceptions.NullParameterException;
 import com.udacity.sandwichclub.model.Sandwich;
 
 import org.json.JSONArray;
@@ -13,9 +11,7 @@ import java.util.List;
 
 public class JsonUtils {
 
-    public static Sandwich parseSandwichJson(String json) throws JSONException, NullParameterException, EmptyParameterException {
-        validateNullParameter(json);
-        validateEmptyParameter(json);
+    public static Sandwich parseSandwichJson(String json) throws JSONException{
         JSONObject sandwichJson = new JSONObject(json);
         JSONObject name = sandwichJson.getJSONObject("name");
         List<String> alsoKnownAs = jsonArrayToListOfStrings(name.getJSONArray("alsoKnownAs"));
@@ -28,19 +24,7 @@ public class JsonUtils {
         return new Sandwich(name.getString("mainName"), alsoKnownAs, placeOfOrigin, description, image, ingredients);
     }
 
-    private static void validateNullParameter(String json) throws NullParameterException {
-        if (json == null) {
-            throw new NullParameterException("Json parameter should not be null.");
-        }
-    }
-
-    private static void validateEmptyParameter(String json) throws EmptyParameterException {
-        if (json.isEmpty()) {
-            throw new EmptyParameterException("Json parameter should not be empty.");
-        }
-    }
-
-    private static List<String> jsonArrayToListOfStrings(JSONArray jsonArray) throws JSONException {
+    public static List<String> jsonArrayToListOfStrings(JSONArray jsonArray) throws JSONException {
         List<String> strings = new ArrayList<>(jsonArray.length());
         for (int index = 0; index < jsonArray.length(); index++) {
             String object = jsonArray.getString(index);

@@ -1,15 +1,16 @@
 package com.udacity.sandwichclub.utils;
 
-import com.udacity.sandwichclub.exceptions.EmptyParameterException;
-import com.udacity.sandwichclub.exceptions.NullParameterException;
 import com.udacity.sandwichclub.model.Sandwich;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
 public class JsonUtilsTest {
@@ -29,7 +30,7 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void test_parseSandwichJson_success() throws JSONException, NullParameterException, EmptyParameterException {
+    public void test_parseSandwichJson_success() throws JSONException {
         Sandwich sandwichObject = JsonUtils.parseSandwichJson(fakeSandwich);
         Assert.assertNotNull(sandwichObject);
         Assert.assertFalse(sandwichObject.getMainName().isEmpty());
@@ -39,13 +40,13 @@ public class JsonUtilsTest {
         Assert.assertFalse(sandwichObject.getIngredients().isEmpty());
     }
 
-    @Test(expected = EmptyParameterException.class)
-    public void test_parseSandwichJson_parameterIsEmptyString_fail() throws JSONException, NullParameterException, EmptyParameterException {
-        JsonUtils.parseSandwichJson("");
-    }
+    @Test
+    public void test_jsonArrayToListOfStrings_success() throws JSONException {
+        JSONArray jsonArray = new JSONArray("[\"Sliced\n            bread\",\"Cheese\",\"Ham\"]");
+        List<String> listOfStrings = JsonUtils.jsonArrayToListOfStrings(jsonArray);
 
-    @Test(expected = NullParameterException.class)
-    public void test_parseSandwichJson_parameterIsNull_fail() throws JSONException, NullParameterException, EmptyParameterException {
-        JsonUtils.parseSandwichJson(null);
+        Assert.assertNotNull(listOfStrings);
+        Assert.assertFalse(listOfStrings.isEmpty());
+        Assert.assertEquals(3, listOfStrings.size());
     }
 }
