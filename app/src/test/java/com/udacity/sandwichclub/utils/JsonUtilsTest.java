@@ -30,7 +30,7 @@ public class JsonUtilsTest {
     }
 
     @Test
-    public void test_parseSandwichJson_success() throws JSONException {
+    public void test_parseSandwichJsonWithValidJson_returnSandwichObjectWithAllFieldsFilled() throws JSONException {
         Sandwich sandwichObject = JsonUtils.parseSandwichJson(fakeSandwich);
         Assert.assertNotNull(sandwichObject);
         Assert.assertFalse(sandwichObject.getMainName().isEmpty());
@@ -38,6 +38,17 @@ public class JsonUtilsTest {
         Assert.assertFalse(sandwichObject.getDescription().isEmpty());
         Assert.assertFalse(sandwichObject.getImage().isEmpty());
         Assert.assertFalse(sandwichObject.getIngredients().isEmpty());
+    }
+    @Test
+    public void test_parseSandwichJsonWithNullParameter_returnNull() throws JSONException {
+        Sandwich sandwichObject = JsonUtils.parseSandwichJson(null);
+        Assert.assertNull(sandwichObject);
+    }
+
+    @Test
+    public void test_parseSandwichJsonWithEmptyParameter_returnNull() throws JSONException {
+        Sandwich sandwichObject = JsonUtils.parseSandwichJson("");
+        Assert.assertNull(sandwichObject);
     }
 
     @Test
