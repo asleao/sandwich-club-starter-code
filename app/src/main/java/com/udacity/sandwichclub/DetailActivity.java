@@ -18,6 +18,8 @@ import org.json.JSONException;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.udacity.sandwichclub.utils.StringUtils.listOfStringsToString;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
@@ -114,16 +116,7 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private String listOfStringsToString(List<String> listOfStrings) {
-        StringBuilder builder = new StringBuilder(listOfStrings.size());
-        for (Iterator<String> it = listOfStrings.iterator(); it.hasNext(); ) {
-            builder.append(it.next());
-            if (it.hasNext()) {
-                builder.append("\n");
-            }
-        }
-        return builder.toString();
-    }
+
 
     private void populateAlsoKnownAs(List<String> alsoKnownAsList) {
         if (alsoKnownAsList.isEmpty()) {
