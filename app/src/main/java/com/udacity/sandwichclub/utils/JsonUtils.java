@@ -24,7 +24,7 @@ public class JsonUtils {
         return new Sandwich(name.getString("mainName"), alsoKnownAs, placeOfOrigin, description, image, ingredients);
     }
 
-    public static List<String> jsonArrayToListOfStrings(JSONArray jsonArray) throws JSONException {
+    static List<String> jsonArrayToListOfStrings(JSONArray jsonArray) throws JSONException {
         List<String> strings = new ArrayList<>(jsonArray.length());
         for (int index = 0; index < jsonArray.length(); index++) {
             String object = jsonArray.getString(index);
