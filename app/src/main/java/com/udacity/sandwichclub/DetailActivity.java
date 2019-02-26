@@ -109,26 +109,29 @@ public class DetailActivity extends AppCompatActivity {
             mIngredientsLabel.setVisibility(View.GONE);
             mIngredientsContent.setVisibility(View.GONE);
         } else {
-            for (Iterator<String> it = listOfIngredients.iterator(); it.hasNext(); ) {
-                mIngredientsContent.append(it.next());
-                if (it.hasNext()) {
-                    mIngredientsContent.append("\n");
-                }
-            }
+            String ingredients = listOfStringsToString(listOfIngredients);
+            mIngredientsContent.setText(ingredients);
         }
     }
 
-    private void populateAlsoKnownAs(List<String> alsoKnownAs) {
-        if (alsoKnownAs.isEmpty()) {
+    private String listOfStringsToString(List<String> listOfStrings) {
+        StringBuilder builder = new StringBuilder(listOfStrings.size());
+        for (Iterator<String> it = listOfStrings.iterator(); it.hasNext(); ) {
+            builder.append(it.next());
+            if (it.hasNext()) {
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    private void populateAlsoKnownAs(List<String> alsoKnownAsList) {
+        if (alsoKnownAsList.isEmpty()) {
             mAlsoKwonLabel.setVisibility(View.GONE);
             mAlsoKwonContent.setVisibility(View.GONE);
         } else {
-            for (Iterator<String> it = alsoKnownAs.iterator(); it.hasNext(); ) {
-                mAlsoKwonContent.append(it.next());
-                if (it.hasNext()) {
-                    mAlsoKwonContent.append("\n");
-                }
-            }
+            String alsoKnownAs = listOfStringsToString(alsoKnownAsList);
+            mAlsoKwonContent.setText(alsoKnownAs);
         }
     }
 
