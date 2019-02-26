@@ -78,8 +78,8 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
-//                .placeholder(R.drawable.)
-//                .error()
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.no_photo)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
@@ -115,7 +115,6 @@ public class DetailActivity extends AppCompatActivity {
             mIngredientsContent.setText(ingredients);
         }
     }
-
 
 
     private void populateAlsoKnownAs(List<String> alsoKnownAsList) {
