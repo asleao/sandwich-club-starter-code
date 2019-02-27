@@ -6,8 +6,8 @@ android {
         applicationId "com.udacity.sandwichclub"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 2
-        versionName "2.0"
+        versionCode 3
+        versionName "3.0"
     }
     buildTypes {
         release {
@@ -15,6 +15,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
@@ -22,4 +23,8 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:${project.constraintLayoutVersion}"
     implementation "com.android.support:appcompat-v7:${project.appcompatVersion}"
     implementation "com.squareup.picasso:picasso:${project.picassoVersion}"
+    testImplementation "junit:junit:${project.junitVersion}"
+    testImplementation "org.robolectric:robolectric:${project.roboeletricVersion}"
+
+
 }
